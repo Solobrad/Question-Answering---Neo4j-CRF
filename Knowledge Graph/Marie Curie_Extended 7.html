@@ -1,0 +1,163 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 1200px;
+                 height: 1000px;
+                 background-color: #FFFFFF;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "id": "Marie Curie", "label": "Marie Curie", "shape": "dot"}, {"color": "#97c2fc", "id": "physics", "label": "physics", "shape": "dot"}, {"color": "#97c2fc", "id": "chemistry", "label": "chemistry", "shape": "dot"}, {"color": "#97c2fc", "id": "Nobel Prize", "label": "Nobel Prize", "shape": "dot"}, {"color": "#97c2fc", "id": "Bust of \"Maria Sk\u0142odowska-Curie\", CERN Museum", "label": "Bust of \"Maria Sk\u0142odowska-Curie\", CERN Museum", "shape": "dot"}, {"color": "#97c2fc", "id": "Switzerland", "label": "Switzerland", "shape": "dot"}, {"color": "#97c2fc", "id": "CERN Museum", "label": "CERN Museum", "shape": "dot"}, {"color": "#97c2fc", "id": "Pierre Curie", "label": "Pierre Curie", "shape": "dot"}, {"color": "#97c2fc", "id": "Henri Becquerel", "label": "Henri Becquerel", "shape": "dot"}, {"color": "#97c2fc", "id": "curium", "label": "curium", "shape": "dot"}, {"color": "#97c2fc", "id": "Order of the White Eagle", "label": "Order of the White Eagle", "shape": "dot"}, {"color": "#97c2fc", "id": "Marie Sklodowska-Curie Award", "label": "Marie Sklodowska-Curie Award", "shape": "dot"}, {"color": "#97c2fc", "id": "2008", "label": "2008", "shape": "dot"}, {"color": "#97c2fc", "id": "Institute of Electrical and Electronics Engineers", "label": "Institute of Electrical and Electronics Engineers", "shape": "dot"}, {"color": "#97c2fc", "id": "Marie Curie Medal", "label": "Marie Curie Medal", "shape": "dot"}, {"color": "#97c2fc", "id": "1996", "label": "1996", "shape": "dot"}, {"color": "#97c2fc", "id": "Polish Chemical Society", "label": "Polish Chemical Society", "shape": "dot"}, {"color": "#97c2fc", "id": "Marie Curie\u2013Sklodowska Medal and Prize", "label": "Marie Curie\u2013Sklodowska Medal and Prize", "shape": "dot"}, {"color": "#97c2fc", "id": "Institute of Physics", "label": "Institute of Physics", "shape": "dot"}, {"color": "#97c2fc", "id": "London", "label": "London", "shape": "dot"}, {"color": "#97c2fc", "id": "Maria Curie-Sk\u0142odowska University", "label": "Maria Curie-Sk\u0142odowska University", "shape": "dot"}, {"color": "#97c2fc", "id": "Lublin", "label": "Lublin", "shape": "dot"}, {"color": "#97c2fc", "id": "Pierre and Marie Curie University", "label": "Pierre and Marie Curie University", "shape": "dot"}, {"color": "#97c2fc", "id": "Paris", "label": "Paris", "shape": "dot"}, {"color": "#97c2fc", "id": "\u00c9cole \u00e9l\u00e9mentaire Marie-Curie", "label": "\u00c9cole \u00e9l\u00e9mentaire Marie-Curie", "shape": "dot"}, {"color": "#97c2fc", "id": "Marie Curie High School", "label": "Marie Curie High School", "shape": "dot"}, {"color": "#97c2fc", "id": "Ho Chi Minh City", "label": "Ho Chi Minh City", "shape": "dot"}, {"color": "#97c2fc", "id": "Vietnam", "label": "Vietnam", "shape": "dot"}, {"color": "#97c2fc", "id": "Lyc\u00e9e fran\u00e7ais Marie Curie de Zurich", "label": "Lyc\u00e9e fran\u00e7ais Marie Curie de Zurich", "shape": "dot"}, {"color": "#97c2fc", "id": "Rue Madame Curie", "label": "Rue Madame Curie", "shape": "dot"}, {"color": "#97c2fc", "id": "Beirut", "label": "Beirut", "shape": "dot"}, {"color": "#97c2fc", "id": "Lebanon", "label": "Lebanon", "shape": "dot"}, {"color": "#97c2fc", "id": "Lyc\u00e9e Marie Curie", "label": "Lyc\u00e9e Marie Curie", "shape": "dot"}, {"color": "#97c2fc", "id": "Chicago", "label": "Chicago", "shape": "dot"}, {"color": "#97c2fc", "id": "United States", "label": "United States", "shape": "dot"}, {"color": "#97c2fc", "id": "2019 British film", "label": "2019 British film", "shape": "dot"}, {"color": "#97c2fc", "id": "Mervyn LeRoy", "label": "Mervyn LeRoy", "shape": "dot"}, {"color": "#97c2fc", "id": "Greer Garson", "label": "Greer Garson", "shape": "dot"}, {"color": "#97c2fc", "id": "the 2019 British film", "label": "the 2019 British film", "shape": "dot"}, {"color": "#97c2fc", "id": "Marie Curie, une femme sur le front", "label": "Marie Curie, une femme sur le front", "shape": "dot"}, {"color": "#97c2fc", "id": "Alain Brunard", "label": "Alain Brunard", "shape": "dot"}, {"color": "#97c2fc", "id": "Dominique Reymond", "label": "Dominique Reymond", "shape": "dot"}, {"color": "#97c2fc", "id": "Isabelle Huppert", "label": "Isabelle Huppert", "shape": "dot"}, {"color": "#97c2fc", "id": "False Assumptions", "label": "False Assumptions", "shape": "dot"}, {"color": "#97c2fc", "id": "Lawrence Aronovitch", "label": "Lawrence Aronovitch", "shape": "dot"}, {"color": "#97c2fc", "id": "2013", "label": "2013", "shape": "dot"}, {"color": "#97c2fc", "id": "The Half-Life of Marie Curie", "label": "The Half-Life of Marie Curie", "shape": "dot"}, {"color": "#97c2fc", "id": "Lauren Gunderson", "label": "Lauren Gunderson", "shape": "dot"}, {"color": "#97c2fc", "id": "20-zloty banknote depicting Marie Curie", "label": "20-zloty banknote depicting Marie Curie", "shape": "dot"}, {"color": "#97c2fc", "id": "Andrzej Heidrich", "label": "Andrzej Heidrich", "shape": "dot"}, {"color": "#97c2fc", "id": "Nobel Prize in Chemistry", "label": "Nobel Prize in Chemistry", "shape": "dot"}, {"color": "#97c2fc", "id": "work", "label": "work", "shape": "dot"}, {"color": "#97c2fc", "id": "Curie", "label": "Curie", "shape": "dot"}, {"color": "#97c2fc", "id": "Entities", "label": "Entities", "shape": "dot"}, {"color": "#97c2fc", "id": "that", "label": "that", "shape": "dot"}, {"color": "#97c2fc", "id": "play", "label": "play", "shape": "dot"}, {"color": "#97c2fc", "id": "Gunderson", "label": "Gunderson", "shape": "dot"}]);
+                  edges = new vis.DataSet([{"arrows": "to", "from": "Marie Curie", "label": "field of work", "title": "field of work", "to": "physics"}, {"arrows": "to", "from": "Marie Curie", "label": "field of work", "title": "field of work", "to": "chemistry"}, {"arrows": "to", "from": "physics", "label": "has part", "title": "has part", "to": "chemistry"}, {"arrows": "to", "from": "chemistry", "label": "part of", "title": "part of", "to": "physics"}, {"arrows": "to", "from": "Marie Curie", "label": "award received", "title": "award received", "to": "Nobel Prize"}, {"arrows": "to", "from": "Bust of \"Maria Sk\u0142odowska-Curie\", CERN Museum", "label": "country", "title": "country", "to": "Switzerland"}, {"arrows": "to", "from": "Bust of \"Maria Sk\u0142odowska-Curie\", CERN Museum", "label": "depicts", "title": "depicts", "to": "Marie Curie"}, {"arrows": "to", "from": "CERN Museum", "label": "country", "title": "country", "to": "Switzerland"}, {"arrows": "to", "from": "Marie Curie", "label": "spouse", "title": "spouse", "to": "Pierre Curie"}, {"arrows": "to", "from": "Pierre Curie", "label": "spouse", "title": "spouse", "to": "Marie Curie"}, {"arrows": "to", "from": "Marie Curie", "label": "spouse", "title": "spouse", "to": "Henri Becquerel"}, {"arrows": "to", "from": "Henri Becquerel", "label": "spouse", "title": "spouse", "to": "Marie Curie"}, {"arrows": "to", "from": "curium", "label": "named after", "title": "named after", "to": "Marie Curie"}, {"arrows": "to", "from": "Order of the White Eagle", "label": "named after", "title": "named after", "to": "Marie Curie"}, {"arrows": "to", "from": "Marie Sklodowska-Curie Award", "label": "inception", "title": "inception", "to": "2008"}, {"arrows": "to", "from": "Marie Sklodowska-Curie Award", "label": "conferred by", "title": "conferred by", "to": "Institute of Electrical and Electronics Engineers"}, {"arrows": "to", "from": "Marie Curie Medal", "label": "inception", "title": "inception", "to": "1996"}, {"arrows": "to", "from": "Marie Curie Medal", "label": "conferred by", "title": "conferred by", "to": "Polish Chemical Society"}, {"arrows": "to", "from": "Marie Curie\u2013Sklodowska Medal and Prize", "label": "inception", "title": "inception", "to": "1996"}, {"arrows": "to", "from": "Marie Curie\u2013Sklodowska Medal and Prize", "label": "conferred by", "title": "conferred by", "to": "Institute of Physics"}, {"arrows": "to", "from": "Institute of Physics", "label": "headquarters location", "title": "headquarters location", "to": "London"}, {"arrows": "to", "from": "Maria Curie-Sk\u0142odowska University", "label": "located in the administrative territorial entity", "title": "located in the administrative territorial entity", "to": "Lublin"}, {"arrows": "to", "from": "Pierre and Marie Curie University", "label": "located in the administrative territorial entity", "title": "located in the administrative territorial entity", "to": "Paris"}, {"arrows": "to", "from": "\u00c9cole \u00e9l\u00e9mentaire Marie-Curie", "label": "located in the administrative", "title": "located in the administrative", "to": "London"}, {"arrows": "to", "from": "Marie Curie High School", "label": "located in the administrative territorial entity", "title": "located in the administrative territorial entity", "to": "Ho Chi Minh City"}, {"arrows": "to", "from": "Marie Curie High School", "label": "country", "title": "country", "to": "Vietnam"}, {"arrows": "to", "from": "Ho Chi Minh City", "label": "country", "title": "country", "to": "Vietnam"}, {"arrows": "to", "from": "Vietnam", "label": "contains administrative territorial entity", "title": "contains administrative territorial entity", "to": "Ho Chi Minh City"}, {"arrows": "to", "from": "Lyc\u00e9e fran\u00e7ais Marie Curie de Zurich", "label": "country", "title": "country", "to": "Switzerland"}, {"arrows": "to", "from": "Rue Madame Curie", "label": "located in the administrative territorial entity", "title": "located in the administrative territorial entity", "to": "Beirut"}, {"arrows": "to", "from": "Rue Madame Curie", "label": "country", "title": "country", "to": "Lebanon"}, {"arrows": "to", "from": "Beirut", "label": "country", "title": "country", "to": "Lebanon"}, {"arrows": "to", "from": "Lyc\u00e9e Marie Curie", "label": "country", "title": "country", "to": "Switzerland"}, {"arrows": "to", "from": "Chicago", "label": "country", "title": "country", "to": "United States"}, {"arrows": "to", "from": "United States", "label": "diplomatic relation", "title": "diplomatic relation", "to": "Vietnam"}, {"arrows": "to", "from": "2019 British film", "label": "director", "title": "director", "to": "Mervyn LeRoy"}, {"arrows": "to", "from": "2019 British film", "label": "cast member", "title": "cast member", "to": "Greer Garson"}, {"arrows": "to", "from": "the 2019 British film", "label": "director", "title": "director", "to": "Mervyn LeRoy"}, {"arrows": "to", "from": "the 2019 British film", "label": "cast member", "title": "cast member", "to": "Greer Garson"}, {"arrows": "to", "from": "Marie Curie, une femme sur le front", "label": "director", "title": "director", "to": "Alain Brunard"}, {"arrows": "to", "from": "Marie Curie, une femme sur le front", "label": "cast member", "title": "cast member", "to": "Dominique Reymond"}, {"arrows": "to", "from": "Marie Curie", "label": "performer", "title": "performer", "to": "Isabelle Huppert"}, {"arrows": "to", "from": "False Assumptions", "label": "author", "title": "author", "to": "Lawrence Aronovitch"}, {"arrows": "to", "from": "False Assumptions", "label": "publication date", "title": "publication date", "to": "2013"}, {"arrows": "to", "from": "The Half-Life of Marie Curie", "label": "author", "title": "author", "to": "Lauren Gunderson"}, {"arrows": "to", "from": "20-zloty banknote depicting Marie Curie", "label": "designed by", "title": "designed by", "to": "Andrzej Heidrich"}, {"arrows": "to", "from": "Marie Curie", "label": "award received", "title": "award received", "to": "Nobel Prize in Chemistry"}, {"arrows": "to", "from": "work", "label": "nmod:poss", "title": "nmod:poss", "to": "Curie"}, {"arrows": "to", "from": "Entities", "label": "acl:relcl", "title": "acl:relcl", "to": "that"}, {"arrows": "to", "from": "play", "label": "nmod:poss", "title": "nmod:poss", "to": "Gunderson"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "repulsion": {
+            "centralGravity": 0.2,
+            "damping": 0.01,
+            "nodeDistance": 230,
+            "springConstant": 0.05,
+            "springLength": 200
+        },
+        "solver": "repulsion",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

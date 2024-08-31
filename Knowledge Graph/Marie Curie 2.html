@@ -1,0 +1,163 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 1200px;
+                 height: 1000px;
+                 background-color: #FFFFFF;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "id": "Kazimierz \u017borie", "label": "Kazimierz \u017borie", "shape": "dot"}, {"color": "#97c2fc", "id": "\u017borawskis", "label": "\u017borawskis", "shape": "dot"}, {"color": "#97c2fc", "id": "Szczuki", "label": "Szczuki", "shape": "dot"}, {"color": "#97c2fc", "id": "Kazimierz \u017bor\u0105skis", "label": "Kazimierz \u017bor\u0105skis", "shape": "dot"}, {"color": "#97c2fc", "id": "Kazimierz \u017borawski", "label": "Kazimierz \u017borawski", "shape": "dot"}, {"color": "#97c2fc", "id": "Krak\u00f3w University", "label": "Krak\u00f3w University", "shape": "dot"}, {"color": "#97c2fc", "id": "mathematician", "label": "mathematician", "shape": "dot"}, {"color": "#97c2fc", "id": "Radium Institute", "label": "Radium Institute", "shape": "dot"}, {"color": "#97c2fc", "id": "1932", "label": "1932", "shape": "dot"}, {"color": "#97c2fc", "id": "statue of Marie Curie Sk\u0142odowska", "label": "statue of Marie Curie Sk\u0142odowska", "shape": "dot"}, {"color": "#97c2fc", "id": "1935", "label": "1935", "shape": "dot"}, {"color": "#97c2fc", "id": "Flying University", "label": "Flying University", "shape": "dot"}, {"color": "#97c2fc", "id": "Warsaw", "label": "Warsaw", "shape": "dot"}, {"color": "#97c2fc", "id": "Marie Curie Sk\u0142odowska", "label": "Marie Curie Sk\u0142odowska", "shape": "dot"}, {"color": "#97c2fc", "id": "Museum of Industry and Agriculture", "label": "Museum of Industry and Agriculture", "shape": "dot"}, {"color": "#97c2fc", "id": "Krakowskie Przedmie\u015bcie", "label": "Krakowskie Przedmie\u015bcie", "shape": "dot"}, {"color": "#97c2fc", "id": "Old Town", "label": "Old Town", "shape": "dot"}, {"color": "#97c2fc", "id": "Marie Curie", "label": "Marie Curie", "shape": "dot"}, {"color": "#97c2fc", "id": "University of Paris", "label": "University of Paris", "shape": "dot"}, {"color": "#97c2fc", "id": "Latin Quarter", "label": "Latin Quarter", "shape": "dot"}, {"color": "#97c2fc", "id": "Gabriel Lippmann", "label": "Gabriel Lippmann", "shape": "dot"}, {"color": "#97c2fc", "id": "physics", "label": "physics", "shape": "dot"}, {"color": "#97c2fc", "id": "J\u00f3zef Wierusz-Kowalski", "label": "J\u00f3zef Wierusz-Kowalski", "shape": "dot"}, {"color": "#97c2fc", "id": "The City of Paris Industrial Physics and Chemistry Higher Educational Institution", "label": "The City of Paris Industrial Physics and Chemistry Higher Educational Institution", "shape": "dot"}, {"color": "#97c2fc", "id": "The City of Paris Industrial Physics and Chemistry Higher Educational Institution (ESPCI Paris)", "label": "The City of Paris Industrial Physics and Chemistry Higher Educational Institution (ESPCI Paris)", "shape": "dot"}, {"color": "#97c2fc", "id": "Industrial Physics and Chemistry Higher Educational Institution", "label": "Industrial Physics and Chemistry Higher Educational Institution", "shape": "dot"}, {"color": "#97c2fc", "id": "Paris", "label": "Paris", "shape": "dot"}, {"color": "#97c2fc", "id": "Pierre Curie and Marie Sk\u0142odowska-Curie, 1895", "label": "Pierre Curie and Marie Sk\u0142odowska-Curie, 1895", "shape": "dot"}, {"color": "#97c2fc", "id": "1895", "label": "1895", "shape": "dot"}, {"color": "#97c2fc", "id": "Pierre Curie", "label": "Pierre Curie", "shape": "dot"}, {"color": "#97c2fc", "id": "Marie Sk\u0142odowska-Curie", "label": "Marie Sk\u0142odowska-Curie", "shape": "dot"}, {"color": "#97c2fc", "id": "Poland", "label": "Poland", "shape": "dot"}, {"color": "#97c2fc", "id": "Sceaux", "label": "Sceaux", "shape": "dot"}, {"color": "#97c2fc", "id": "X-ray", "label": "X-ray", "shape": "dot"}, {"color": "#97c2fc", "id": "Wilhelm R\u00f6ntgen", "label": "Wilhelm R\u00f6ntgen", "shape": "dot"}, {"color": "#97c2fc", "id": "X-rays", "label": "X-rays", "shape": "dot"}]);
+                  edges = new vis.DataSet([{"arrows": "to", "from": "Kazimierz \u017borie", "label": "family", "title": "family", "to": "\u017borawskis"}, {"arrows": "to", "from": "Kazimierz \u017borie", "label": "place of birth", "title": "place of birth", "to": "Szczuki"}, {"arrows": "to", "from": "Kazimierz \u017bor\u0105skis", "label": "family", "title": "family", "to": "\u017borawskis"}, {"arrows": "to", "from": "Kazimierz \u017borawski", "label": "educated at", "title": "educated at", "to": "Krak\u00f3w University"}, {"arrows": "to", "from": "Kazimierz \u017borawski", "label": "employer", "title": "employer", "to": "Krak\u00f3w University"}, {"arrows": "to", "from": "Kazimierz \u017borawski", "label": "occupation", "title": "occupation", "to": "mathematician"}, {"arrows": "to", "from": "Radium Institute", "label": "inception", "title": "inception", "to": "1932"}, {"arrows": "to", "from": "statue of Marie Curie Sk\u0142odowska", "label": "inception", "title": "inception", "to": "1935"}, {"arrows": "to", "from": "Flying University", "label": "located in the administrative territorial entity", "title": "located in the administrative territorial entity", "to": "Warsaw"}, {"arrows": "to", "from": "Marie Curie Sk\u0142odowska", "label": "place of birth", "title": "place of birth", "to": "Warsaw"}, {"arrows": "to", "from": "Marie Curie Sk\u0142odowska", "label": "work location", "title": "work location", "to": "Warsaw"}, {"arrows": "to", "from": "Museum of Industry and Agriculture", "label": "located in the administrative territorial entity", "title": "located in the administrative territorial entity", "to": "Krakowskie Przedmie\u015bcie"}, {"arrows": "to", "from": "Museum of Industry and Agriculture", "label": "located in the administrative territorial entity", "title": "located in the administrative territorial entity", "to": "Warsaw"}, {"arrows": "to", "from": "Old Town", "label": "located in the administrative territorial entity", "title": "located in the administrative territorial entity", "to": "Warsaw"}, {"arrows": "to", "from": "Marie Curie", "label": "educated at", "title": "educated at", "to": "University of Paris"}, {"arrows": "to", "from": "Latin Quarter", "label": "part of", "title": "part of", "to": "University of Paris"}, {"arrows": "to", "from": "Gabriel Lippmann", "label": "employer", "title": "employer", "to": "University of Paris"}, {"arrows": "to", "from": "Gabriel Lippmann", "label": "educated at", "title": "educated at", "to": "University of Paris"}, {"arrows": "to", "from": "Gabriel Lippmann", "label": "field of work", "title": "field of work", "to": "physics"}, {"arrows": "to", "from": "J\u00f3zef Wierusz-Kowalski", "label": "educated at", "title": "educated at", "to": "The City of Paris Industrial Physics and Chemistry Higher Educational Institution"}, {"arrows": "to", "from": "J\u00f3zef Wierusz-Kowalski", "label": "educated at", "title": "educated at", "to": "The City of Paris Industrial Physics and Chemistry Higher Educational Institution (ESPCI Paris)"}, {"arrows": "to", "from": "Industrial Physics and Chemistry Higher Educational Institution", "label": "located in the administrative territorial entity", "title": "located in the administrative territorial entity", "to": "Paris"}, {"arrows": "to", "from": "Pierre Curie and Marie Sk\u0142odowska-Curie, 1895", "label": "point in time", "title": "point in time", "to": "1895"}, {"arrows": "to", "from": "Pierre Curie", "label": "spouse", "title": "spouse", "to": "Marie Sk\u0142odowska-Curie"}, {"arrows": "to", "from": "Marie Sk\u0142odowska-Curie", "label": "spouse", "title": "spouse", "to": "Pierre Curie"}, {"arrows": "to", "from": "Pierre Curie and Marie Sk\u0142odowska-Curie, 1895", "label": "publication date", "title": "publication date", "to": "1895"}, {"arrows": "to", "from": "Krak\u00f3w University", "label": "country", "title": "country", "to": "Poland"}, {"arrows": "to", "from": "Krak\u00f3w University", "label": "located in the administrative territorial entity", "title": "located in the administrative territorial entity", "to": "Warsaw"}, {"arrows": "to", "from": "Krak\u00f3w University", "label": "location", "title": "location", "to": "Warsaw"}, {"arrows": "to", "from": "Pierre Curie", "label": "spouse", "title": "spouse", "to": "Marie Curie"}, {"arrows": "to", "from": "Marie Curie", "label": "spouse", "title": "spouse", "to": "Pierre Curie"}, {"arrows": "to", "from": "Pierre Curie", "label": "place of death", "title": "place of death", "to": "Sceaux"}, {"arrows": "to", "from": "X-ray", "label": "discoverer or inventor", "title": "discoverer or inventor", "to": "Wilhelm R\u00f6ntgen"}, {"arrows": "to", "from": "X-rays", "label": "discoverer or inventor", "title": "discoverer or inventor", "to": "Wilhelm R\u00f6ntgen"}, {"arrows": "to", "from": "Wilhelm R\u00f6ntgen", "label": "notable work", "title": "notable work", "to": "X-ray"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "repulsion": {
+            "centralGravity": 0.2,
+            "damping": 0.01,
+            "nodeDistance": 230,
+            "springConstant": 0.05,
+            "springLength": 200
+        },
+        "solver": "repulsion",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
