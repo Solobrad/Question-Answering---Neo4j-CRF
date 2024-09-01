@@ -1,0 +1,101 @@
+Sentence #,Word,POS,Tag
+Sentence: 47960,Marie,NNP,B-PER
+,Curie,NNP,I-PER
+,was,VBD,O
+,a,DT,O
+,pioneering,JJ,O
+,scientist,NN,O
+,in,IN,O
+,the,DT,O
+,field,NN,O
+,of,IN,O
+,radioactivity,NN,O
+,.,.,O
+Sentence: 47961,Marie,NNP,B-PER
+,Curie,NNP,I-PER
+,was,VDB,O
+,the,DT,O
+,first,JJ,O
+,woman,NN,O
+,to,TO,O
+,win,VBD,O
+,a,DT,O
+,Nobel,NNP,O
+,Prize,NNP,O
+,.,.,O
+Sentence: 47962,Pierre,NNP,B-PER
+,Curie,NNP,I-PER
+,was,VBD,O
+,instrumental,JJ,O
+,in,IN,O
+,discovering,VBG,O
+,radioactivity,NN,O
+,.,.,O
+Sentence: 47963,Pierre,NNP,B-PER
+,Curie,NNP,I-PER
+,and,CC,O
+,Marie,NNP,B-PER
+,Curie,NNP,I-PER
+,were,VBD,O
+,partners,NNS,O
+,in,IN,O
+,both,DT,O
+,life,NN,O
+,and,CC,O
+,science,NN,O
+,.,.,O
+Sentence: 47964,Marie,NNP,B-PER
+,Curie,NNP,I-PER
+,was,VBD,O
+,born,VBN,O
+,in,IN,O
+,Warsaw,NNP,B-GPE
+,",",",",O
+,Poland,NNP,I-GPE
+,.,.,O
+Sentence: 47965,What,WP,O
+,did,VBD,O
+,Marie,NNP,B-PER
+,Curie,NNP,I-PER
+,discover,VB,O
+,?,.,O
+Sentence: 47965,Where,WRB,O
+,was,VBD,O
+,Marie,NNP,B-PER
+,Curie,NNP,I-PER
+,born,VBN,O
+,?,.,O
+Sentence: 47966,What,WP,O
+,was,VBD,O
+,Marie,NNP,B-PER
+,Curie,NNP,I-PER
+,s,VBZ,O
+,marital,JJ,O
+,status,NN,O
+,?,.,O
+Sentence: 47966,Where,WRB,O
+,did,VBD,O
+,Marie,NNP,B-PER
+,Curie,NNP,I-PER
+,receive,VB,O
+,her,PRP$,O
+,early,JJ,O
+,education,NN,O
+,?,.,O
+Sentence: 47967,Marie,NNP,B-PER
+,Curie,NNP,I-PER
+,discovered,VBD,O
+,radium,NN,O
+,in,IN,O
+,1898,CD,O
+,.,.,O
+Sentence: 47967,Marie,NNP,B-PER
+,Curie,NNP,I-PER
+,has,VBD,O
+,two,CD,O
+,daughters,NNS,O
+,named,VBN,O
+,Irène,NNP,B-PER
+,and,CC,O
+,Ève,NNP,B-PER
+,.,.,O
